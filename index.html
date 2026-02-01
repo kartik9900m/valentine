@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saloni ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    max-width: 330px;
+    animation: pop 1s ease;
+}
+
+@keyframes pop {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+img {
+    width: 100%;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    color: #ff4d6d;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+button {
+    padding: 12px 26px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 8px;
+}
+
+#yesBtn {
+    background: #ff4d6d;
+    color: white;
+}
+
+#noBtn {
+    background: #aaa;
+    color: white;
+    position: absolute;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Romantic background music -->
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+    <img src="couple.jpg" alt="Us ❤️">
+
+    <h1>Saloni ❤️</h1>
+
+    <p>
+        From the moment you walked into my life, everything felt brighter 🌸<br><br>
+        Every smile of yours feels like home, every moment with you feels special 💖<br><br>
+        Saloni, will you be my Valentine — today, tomorrow, and forever? 🥹❤️
+    </p>
+
+    <button id="yesBtn" onclick="yesClicked()">YES 😍</button>
+    <button id="noBtn">NO 🙄</button>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+function moveNo() {
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 60);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+function yesClicked() {
+    document.body.innerHTML = `
+    <div style="
+        height:100vh;
+        background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        color:white;
+        text-align:center;
+        font-family:Poppins;
+        overflow:hidden;
+    ">
+        <h1 style="font-size:38px;">She said YES 💖🥹</h1>
+        <p style="font-size:22px;">My heart is officially yours forever ❤️</p>
+        <p style="font-size:18px;">Happy Valentine’s Day, Saloni 🌹</p>
+        <canvas id="confetti"></canvas>
+    </div>
+    `;
+    startConfetti();
+}
+
+function startConfetti() {
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const pieces = Array.from({length:150}, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 6 + 4,
+        d: Math.random() * 4 + 2,
+        color: ["#ff4d6d","#ffb3c6","#ffffff"][Math.floor(Math.random()*3)]
+    }));
+
+    function draw() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        pieces.forEach(p => {
+            ctx.beginPath();
+            ctx.fillStyle = p.color;
+            ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fill();
+            p.y += p.d;
+            if (p.y > canvas.height) p.y = 0;
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
+}
+</script>
+
+</body>
+</html>
